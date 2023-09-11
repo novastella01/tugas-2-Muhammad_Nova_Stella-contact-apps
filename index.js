@@ -57,7 +57,7 @@ function mainMenu(pilihan) { // fungsi untuk mengatur pilihan menu
 function simpan() { // fungsi untuk menyimpan data
     console.log("Silahkan Masukan Data !  ");
     readline.question("Nama :", (nama) => {
-        if (!/^[A-Za-z\s]+$/.test(nama)) {
+       if (!/^[A-Za-z]+/.test(nama)) {
             console.log('Nama harus berupa string yang tidak boleh kosong');
             simpan();
         } else {
@@ -71,9 +71,14 @@ function simpan() { // fungsi untuk menyimpan data
 }
 const ambilInputanNomor = () => { // fungsi untuk mengambil inputan nomor
     readline.question("Nomor :", (nomor) => {
-        objectKontak.nomorHp = nomor
-        databaseKontak.push(Object.assign({}, objectKontak)) // insert data kedalam array databseKOntak
-        kembali()
+        if (!/^[0-9]+/.test(nomor)) {
+            console.log('Nomor telepon harus berupa angka yang valid')
+            ambilInputanNomor()
+        } else {
+            objectKontak.nomorHp = nomor
+            databaseKontak.push(Object.assign({}, objectKontak)) // insert data kedalam array databseKOntak
+            kembali()
+        }
     })
 }
 const kembali = () => { // fungsi untuk navigasi kembali
