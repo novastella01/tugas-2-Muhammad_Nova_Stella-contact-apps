@@ -6,8 +6,8 @@ const databaseKontak = require('./storage');
 
 // buat object kosong untuk menampung inputan 
 let objectKontak = {
-    nama: 'muhammad nova stella',
-    nomorHp: '012345'
+    nama: '',
+    nomorHp: ''
 }
 
 
@@ -55,12 +55,18 @@ function mainMenu(pilihan) { // fungsi untuk mengatur pilihan menu
 
 
 function simpan() { // fungsi untuk menyimpan data
-    console.log("Silahkan Masukan Data ! : ");
+    console.log("Silahkan Masukan Data !  ");
     readline.question("Nama :", (nama) => {
-        objectKontak.nama = nama
-        console.log(`Input data berhasil ! :${nama}`);
-        ambilInputanNomor()
-    })
+        if (!/^[A-Za-z\s]+$/.test(nama)) {
+            console.log('Nama harus berupa string yang tidak boleh kosong');
+            simpan();
+        } else {
+            objectKontak.nama = nama
+            console.log(`Input data berhasil ! ${nama}`);
+            ambilInputanNomor()
+        };
+
+    });
 
 }
 const ambilInputanNomor = () => { // fungsi untuk mengambil inputan nomor
